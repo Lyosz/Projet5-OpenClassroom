@@ -2,9 +2,11 @@ package com.safetynet.webmicroservice.webdaoimpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.safetynet.webmicroservice.webdao.FirestationDao;
 import com.safetynet.webmicroservice.webmodel.Firestations;
-
+@Component
 public class FirestationDaoImpl implements FirestationDao{
 
 	@Override

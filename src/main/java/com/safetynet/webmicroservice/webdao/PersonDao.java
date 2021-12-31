@@ -1,12 +1,12 @@
 package com.safetynet.webmicroservice.webdao;
 
-import com.safetynet.webmicroservice.webmodel.Persons;
+import com.safetynet.webmicroservice.webmodel.Person;
 
 public interface PersonDao {
 
 	
-    public String findById(String id);
-    public String save(Persons person);
-    public String findAll();
-    public String update(Persons person);
+    public Person findById(String id);
+    public Person save(Person person);
+    public Person update(Person person);
+    public boolean delete(String id);
 }

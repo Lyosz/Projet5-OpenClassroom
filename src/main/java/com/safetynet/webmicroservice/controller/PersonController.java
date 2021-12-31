@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.safetynet.webmicroservice.webdaoimpl.PersonDaoImpl;
+import com.safetynet.webmicroservice.webmodel.Person;
 import com.safetynet.webmicroservice.webmodel.Persons;
 
 @RestController
 public class PersonController {
 
 	
-	//@Autowired
-	//private Person daoPersonDao;
+	@Autowired
+	private PersonDaoImpl daoPersonDao;
 
 	//private JsonWriter jsonWriter;
 	/**
@@ -26,27 +29,25 @@ public class PersonController {
 	 *
 	 */
 	@PostMapping(path="/person")
-	public String saveNewPerson(@RequestBody Persons person) {
+	public Person saveNewPerson(@RequestBody Person person) {
 		
-		return null;
+		return daoPersonDao.save(person);
 	}
 	
 	@PutMapping(path="/person/{id}")
-	public String updatePerson(@PathVariable String id, @RequestBody Persons person) {
-		return "Replacement";
+	public Person updatePerson(@PathVariable String id, @RequestBody Person person) {
+		return daoPersonDao.update(person);
 	}
 	
 	@DeleteMapping(path="/person/{id}")
-	public String deletePerson(@PathVariable String id) {
-		return "Person deleted";
+	public boolean deletePerson(@PathVariable String id) {
+		return daoPersonDao.delete(id);
 	}
 	
 	@GetMapping(path="/person/{id}")
-	public Persons getPerson(@PathVariable String id) {
+	public Person getPerson(@PathVariable String id) {
 		
-		//jsonWriter.getPersonJson(id);
-		return null; //JsonWriter.getPersonJson(id);
-				//PersonDao.findPersonById(id);
+		return daoPersonDao.findById(id);
 	
 	}
 	
@@ -54,7 +55,7 @@ public class PersonController {
 	public String getAllPersoninfo(@PathVariable String firstName,@PathVariable String lastName) {
 		
 		return null;
-				//PersonDao.findAllPerson();
+				
 	
 	}
 }

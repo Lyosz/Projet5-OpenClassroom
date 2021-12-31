@@ -9,5 +9,4 @@ public class WebmicroserviceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebmicroserviceApplication.class, args);
 	}
-
 }

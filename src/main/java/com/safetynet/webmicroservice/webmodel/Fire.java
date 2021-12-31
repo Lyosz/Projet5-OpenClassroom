@@ -1,51 +1,77 @@
 package com.safetynet.webmicroservice.webmodel;
 
-import java.util.List;
 
 public class Fire {
 
+	private String address;
+	private String station;
 	private String name;
 	private String phone;
-	private String age;
-	private List<String> medications;
-	private List<String> allergies;
+	private long age;
+	private String[] medications;
+	private String[] allergies;
 	
-	public String getNom() {
+	public Fire() {
+		
+	}
+	
+	
+	public Fire(String address, String station, String name, String phone, long age, String[] medications,
+			String[] allergies) {
+		
+		this.address = address;
+		this.station = station;
+		this.name = name;
+		this.phone = phone;
+		this.age = age;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getStation() {
+		return station;
+	}
+	public void setStation(String station) {
+		this.station = station;
+	}
+	public String getName() {
 		return name;
 	}
-	public void setNom(String nom) {
-		this.name = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getNumero() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setNumero(String numero) {
-		this.phone = numero;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getAge() {
+	public long getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(long age) {
 		this.age = age;
 	}
-	public List<String> getMedications() {
+	public String[] getMedications() {
 		return medications;
 	}
-	public void setMedications(List<String> medications) {
+	public void setMedications(String[] medications) {
 		this.medications = medications;
 	}
-	public List<String> getAllergies() {
+	public String[] getAllergies() {
 		return allergies;
 	}
-	public void setAllergies(List<String> allergies) {
+	public void setAllergies(String[] allergies) {
 		this.allergies = allergies;
 	}
 	
-	@Override
-	public String toString() {
-		return "Fire [name=" + name + ", phone=" + phone + ", age=" + age + ", medications=" + medications
-				+ ", allergies=" + allergies + "]";
-	}
 	
 	
 }

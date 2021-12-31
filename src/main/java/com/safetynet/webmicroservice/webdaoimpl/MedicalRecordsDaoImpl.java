@@ -1,16 +1,15 @@
 package com.safetynet.webmicroservice.webdaoimpl;
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.safetynet.webmicroservice.service.MedicalRecordService;
 import com.safetynet.webmicroservice.util.IdToFirstAndLastName;
 import com.safetynet.webmicroservice.webdao.MedicalRecordsDao;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
-import com.safetynet.webmicroservice.webmodel.MedicalRecords;
 
+@Component
 public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
 
 	@Autowired
@@ -29,14 +28,9 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
 	@Override
 	public MedicalRecord update(MedicalRecord medicalRecord) {
 		// TODO Auto-generated method stub
-		return null;
+		return medicalRecordService.updateMedicalRecord(medicalRecord);
 	}
 
-	@Override
-	public List<MedicalRecords> findAll() {
-		
-		return null;
-	}
 
 	@Override
 	public MedicalRecord save(MedicalRecord medicalRecord) {
@@ -45,11 +39,11 @@ public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
 	}
 
 	@Override
-	public MedicalRecord delete(String id) {
+	public boolean delete(String id) {
 		String firstName = idTo.getFirstName(id);
 		String lastName = idTo.getLastName(id);
 		medicalRecordService.deleteMedicalRecord(firstName, lastName);
-		return null;
+		return true;
 	}
 
 	
