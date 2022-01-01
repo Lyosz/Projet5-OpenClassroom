@@ -6,19 +6,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.safetynet.webmicroservice.constants.DataInMemory;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
-
+@Component
 public class AgeCalculator {
 	
 	@Autowired
 	DataInMemory data;
 	
-	//This section will be changed
-	List<MedicalRecord> medicalRecords = data.listMedicalRecords;
-	//end of section
+	List<MedicalRecord> medicalRecords;
 	
 	public long calculator(String birthdate) {
 		
@@ -35,9 +36,12 @@ public class AgeCalculator {
 		catch (ParseException excep) {   
             excep.printStackTrace();   
         }   
-         
-
-        
+          
 		return 0;
+	}
+	
+	@PostConstruct
+	private void loadData() {
+		medicalRecords = data.getMedicalRecords();
 	}
 }

@@ -2,8 +2,10 @@ package com.safetynet.webmicroservice.webdao;
 
 import java.util.List;
 
-import com.safetynet.webmicroservice.webmodel.Firestations;
+import org.springframework.stereotype.Component;
 
+import com.safetynet.webmicroservice.webmodel.Firestations;
+@Component
 public interface FirestationDao {
 
 	public List<Firestations>findAll();

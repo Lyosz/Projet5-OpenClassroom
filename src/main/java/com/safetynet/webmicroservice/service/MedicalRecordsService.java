@@ -1,19 +1,19 @@
-package com.safetynet.webmicroservice.webdaoimpl;
+package com.safetynet.webmicroservice.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.webmicroservice.service.MedicalRecordService;
 import com.safetynet.webmicroservice.util.IdToFirstAndLastName;
 import com.safetynet.webmicroservice.webdao.MedicalRecordsDao;
+import com.safetynet.webmicroservice.webdaoimpl.MedicalRecordDaoImpl;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 
 @Component
-public class MedicalRecordsDaoImpl implements MedicalRecordsDao{
+public class MedicalRecordsService implements MedicalRecordsDao{
 
 	@Autowired
-	private MedicalRecordService medicalRecordService;
+	private MedicalRecordDaoImpl medicalRecordService;
 	@Autowired
 	private IdToFirstAndLastName idTo;
 	

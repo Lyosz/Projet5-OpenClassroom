@@ -1,47 +1,77 @@
 package com.safetynet.webmicroservice.webdaoimpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import java.util.List;
 
-import com.safetynet.webmicroservice.service.PersonService;
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.safetynet.webmicroservice.constants.DataInMemory;
 import com.safetynet.webmicroservice.util.IdToFirstAndLastName;
 import com.safetynet.webmicroservice.webdao.PersonDao;
 import com.safetynet.webmicroservice.webmodel.Person;
-
-
-@Component
+@Service
 public class PersonDaoImpl implements PersonDao{
-
+	
 	@Autowired
-	private PersonService personService;
+	DataInMemory data;
 	@Autowired
 	IdToFirstAndLastName idFirstAndLastName;
 	
-	@Override
-	public Person findById(String id) {
-		String firstname = idFirstAndLastName.getFirstName(id);
-		String lastname = idFirstAndLastName.getLastName(id);
-		return personService.getPersonByNameAndLastname(firstname, lastname);
+	List<Person> persons;
+	String firstname;
+	String lastname;
+	
+	public Person getPersonByNameAndLastname(String id){
+		firstname = idFirstAndLastName.getFirstName(id);
+		lastname = idFirstAndLastName.getLastName(id);
+		for(Person personInfo : persons) {
+			if (personInfo.getFirstName().equals(firstname) && personInfo.getLastName().equals(lastname)) {
+	    		return personInfo;
+	    	}
+	    	
+	    
+		}
+		return null;
 	}
-
-	@Override
-	public Person save(Person person) {
+	
+	public Person savePerson(Person person) {
+		persons.add(person);
+		return person;
+	}
+	
+	public boolean deletePerson(String id) {
+		firstname = idFirstAndLastName.getFirstName(id);
+		lastname = idFirstAndLastName.getLastName(id);
+		for(Person personInfo : persons) {
+			if (personInfo.getFirstName().equals(firstname) && personInfo.getLastName().equals(lastname)) {
+				persons.remove(personInfo);
+				return true;
+	    	}
 		
-		return personService.savePerson(person);
 	}
-
-	@Override
-	public Person update(Person person) {
+		return false;
+}
+	public Person updatePerson(Person person) {
 		
-		return personService.updatePerson(person);
+		String firstName = person.getFirstName();
+		String lastName = person.getLastName();
+		
+		for(Person personInfo : persons) {
+			if (personInfo.getFirstName().equals(firstName) && personInfo.getLastName().equals(lastName)) {
+				persons.remove(personInfo);
+				persons.add(person);
+				return person;
+	    	}
+		
 	}
-
-	@Override
-	public boolean delete(String id) {
-		String firstname = idFirstAndLastName.getFirstName(id);
-		String lastname = idFirstAndLastName.getLastName(id);
-		return personService.deletePerson(firstname, lastname);
+		return null;
 	}
-
+	
+	@PostConstruct
+	private void loadData() {
+		persons = data.getPerson();
+	}
 
 }

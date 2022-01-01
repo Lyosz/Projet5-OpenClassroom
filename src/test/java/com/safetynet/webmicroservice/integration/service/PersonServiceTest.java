@@ -1,7 +1,5 @@
 package com.safetynet.webmicroservice.integration.service;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import com.safetynet.webmicroservice.webmodel.Person;
@@ -9,7 +7,7 @@ import com.safetynet.webmicroservice.webmodel.Person;
 public class PersonServiceTest {
 
 	@Test
-	public List<Person> savePersonTest() {
+	public Person savePersonTest() {
 		return null;
 	}
 	
@@ -19,12 +17,12 @@ public class PersonServiceTest {
 	}
 	
 	@Test
-	public List<Person> updatePersonTest() {
+	public Person updatePersonTest() {
 		return null;
 	}
 	
 	@Test
-	public List<Person> getPersonTest() {
+	public Person getPersonTest() {
 		return null;
 	}
 }

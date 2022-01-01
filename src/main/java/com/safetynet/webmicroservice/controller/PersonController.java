@@ -9,16 +9,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.webmicroservice.webdaoimpl.PersonDaoImpl;
+import com.safetynet.webmicroservice.service.PersonService;
 import com.safetynet.webmicroservice.webmodel.Person;
-import com.safetynet.webmicroservice.webmodel.Persons;
 
 @RestController
 public class PersonController {
 
 	
 	@Autowired
-	private PersonDaoImpl daoPersonDao;
+	private PersonService personService;
 
 	//private JsonWriter jsonWriter;
 	/**
@@ -31,23 +30,23 @@ public class PersonController {
 	@PostMapping(path="/person")
 	public Person saveNewPerson(@RequestBody Person person) {
 		
-		return daoPersonDao.save(person);
+		return personService.save(person);
 	}
 	
 	@PutMapping(path="/person/{id}")
 	public Person updatePerson(@PathVariable String id, @RequestBody Person person) {
-		return daoPersonDao.update(person);
+		return personService.update(person);
 	}
 	
 	@DeleteMapping(path="/person/{id}")
 	public boolean deletePerson(@PathVariable String id) {
-		return daoPersonDao.delete(id);
+		return personService.delete(id);
 	}
 	
 	@GetMapping(path="/person/{id}")
 	public Person getPerson(@PathVariable String id) {
 		
-		return daoPersonDao.findById(id);
+		return personService.findById(id);
 	
 	}
 	

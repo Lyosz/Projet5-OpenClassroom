@@ -1,12 +1,14 @@
 package com.safetynet.webmicroservice.webdao;
 
-import com.safetynet.webmicroservice.webmodel.Person;
+import org.springframework.stereotype.Component;
 
+import com.safetynet.webmicroservice.webmodel.Person;
+@Component
 public interface PersonDao {
 
 	
-    public Person findById(String id);
-    public Person save(Person person);
-    public Person update(Person person);
-    public boolean delete(String id);
+    public Person getPersonByNameAndLastname(String id);
+    public Person savePerson(Person person);
+    public Person updatePerson(Person person);
+    public boolean deletePerson(String id);
 }

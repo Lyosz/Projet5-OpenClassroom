@@ -1,7 +1,5 @@
 package com.safetynet.webmicroservice.integration.service;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import com.safetynet.webmicroservice.webmodel.Firestation;
@@ -9,7 +7,7 @@ import com.safetynet.webmicroservice.webmodel.Firestation;
 public class FirestationServiceTest {
 
 	@Test
-	public List<Firestation> saveFirestationTest() {
+	public Firestation saveFirestationTest() {
 		return null;
 	}
 	
@@ -19,12 +17,12 @@ public class FirestationServiceTest {
 	}
 	
 	@Test
-	public List<Firestation> updateFirestationTest() {
+	public Firestation updateFirestationTest() {
 		return null;
 	}
 	
 	@Test
-	public List<Firestation> getFirestationTest() {
+	public Firestation getFirestationTest() {
 		return null;
 	}
 }

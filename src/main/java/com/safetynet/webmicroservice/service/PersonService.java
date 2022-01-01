@@ -1,63 +1,41 @@
 package com.safetynet.webmicroservice.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import com.safetynet.webmicroservice.constants.DataInMemory;
+import com.safetynet.webmicroservice.util.IdToFirstAndLastName;
+import com.safetynet.webmicroservice.webdaoimpl.PersonDaoImpl;
 import com.safetynet.webmicroservice.webmodel.Person;
-@Service
-public class PersonService {
-	
+
+
+@Component
+public class PersonService{
+
 	@Autowired
-	DataInMemory data;
+	private PersonDaoImpl personDaoImpl;
+	@Autowired
+	IdToFirstAndLastName idFirstAndLastName;
 	
-	//This section will be changed
-	List<Person> persons = data.listPersons;
-	//end of section
-	
-	public Person getPersonByNameAndLastname(String firstName, String lastName){
-	
-		for(Person personInfo : persons) {
-			if (personInfo.getFirstName().equals(firstName) && personInfo.getLastName().equals(lastName)) {
-	    		return personInfo;
-	    	}
-	    	
-	    
-		}
-		return null;
+	/**
+	 *
+	 **/
+	public Person findById(String id) {
+		return personDaoImpl.getPersonByNameAndLastname(id);
 	}
-	
-	public Person savePerson(Person person) {
-		persons.add(person);
-		return person;
+
+	public Person save(Person person) {
+		
+		return personDaoImpl.savePerson(person);
 	}
-	
-	public boolean deletePerson(String firstName, String lastName) {
+
+	public Person update(Person person) {
 		
-		for(Person personInfo : persons) {
-			if (personInfo.getFirstName().equals(firstName) && personInfo.getLastName().equals(lastName)) {
-				persons.remove(personInfo);
-				return true;
-	    	}
-		
+		return personDaoImpl.updatePerson(person);
 	}
-		return false;
-}
-	public Person updatePerson(Person person) {
-		
-		String firstName = person.getFirstName();
-		String lastName = person.getLastName();
-		
-		for(Person personInfo : persons) {
-			if (personInfo.getFirstName().equals(firstName) && personInfo.getLastName().equals(lastName)) {
-				persons.remove(personInfo);
-				persons.add(person);
-				return person;
-	    	}
-		
+
+	public boolean delete(String id) {
+		return personDaoImpl.deletePerson(id);
 	}
-		return null;
-	}
+
+
 }

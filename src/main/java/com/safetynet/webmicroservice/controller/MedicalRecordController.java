@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.webmicroservice.webdaoimpl.MedicalRecordsDaoImpl;
+import com.safetynet.webmicroservice.service.MedicalRecordsService;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 
 @RestController
 public class MedicalRecordController {
 
 	@Autowired
-	private MedicalRecordsDaoImpl medicalRecordDao;
+	private MedicalRecordsService medicalRecordDao;
 	
 	@PostMapping(value="/medicalRecord")
 	public MedicalRecord postNewMedicalRecord(@RequestBody MedicalRecord medicalRecord) {

@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
 import com.safetynet.webmicroservice.constants.JsonPathConstant;
 import com.safetynet.webmicroservice.webmodel.Firestation;
@@ -13,7 +15,7 @@ import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 import com.safetynet.webmicroservice.webmodel.MedicalRecords;
 import com.safetynet.webmicroservice.webmodel.Person;
 import com.safetynet.webmicroservice.webmodel.Persons;
-
+@Component
 public class FileReaderToList {
 
 	public List<MedicalRecord> getMedicalRecordToList() {
