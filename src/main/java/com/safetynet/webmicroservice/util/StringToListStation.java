@@ -13,7 +13,7 @@ public class StringToListStation {
 			return station;
 		}
 		
-
-		return null;
+		String[] station = stations.split(stations);
+		return station;
 	}
 }

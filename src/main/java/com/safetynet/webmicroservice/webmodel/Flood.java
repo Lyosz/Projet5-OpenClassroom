@@ -10,10 +10,13 @@ public class Flood {
 		return address;
 	}
 
+	public Flood(List<Address> address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
 		return "Flood [address=" + address + "]";
 	}
-	
 	
 }

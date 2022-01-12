@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.webmicroservice.constants.DataInMemory;
 import com.safetynet.webmicroservice.util.AgeCalculator;
+import com.safetynet.webmicroservice.util.StringToListStation;
+import com.safetynet.webmicroservice.webmodel.Address;
 import com.safetynet.webmicroservice.webmodel.Fire;
 import com.safetynet.webmicroservice.webmodel.Firestation;
 import com.safetynet.webmicroservice.webmodel.Flood;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 import com.safetynet.webmicroservice.webmodel.Person;
+
 @Service
 public class CatastrophesDaoImpl {
 
@@ -21,13 +24,20 @@ public class CatastrophesDaoImpl {
 	DataInMemory data;
 	@Autowired
 	AgeCalculator ageCalculator;
+	@Autowired
+	StringToListStation stringToListStation;
 	
 	List<Person> persons;
 	List<MedicalRecord> medicalRecords;
 	List<Firestation> firestations;
 	
+	List<Fire> personsAtAddress;
+	
+	Flood flood;
+	List<Address> addresses;
+	
 	public List<Fire> fireAlert(String address) {
-		List<Fire> personsAtAddress = null;
+		personsAtAddress = null;
 		
 		for(Person person: persons) {
 			if(person.getAddress().equals(address)) {
@@ -52,8 +62,32 @@ public class CatastrophesDaoImpl {
 		return personsAtAddress;
 	}
 	
-	public List<Flood> floodAlert(String[] stations){
-		return null;
+	public Flood floodAlert(String strStations){
+		addresses = null;
+		String[] stations = stringToListStation.toListStation(strStations);
+		for(String station: stations) {
+			
+			for(Firestation firestation: firestations) {
+				
+				if(firestation.getStation().equals(station)) {
+					for(Person person: persons) {
+						
+						if(person.getAddress().equals(firestation.getAddress())) {
+							for(MedicalRecord medicalRecord: medicalRecords) {
+								
+								if(medicalRecord.getFirstName().equals(person.getFirstName())
+								    && medicalRecord.getLastName().equals(person.getLastName())) {
+									String birthdate = medicalRecord.getBirthdate();
+									long age = ageCalculator.calculator(birthdate);
+									addresses.add(new Address(person.getFirstName(), person.getLastName(), person.getPhone(), age, person.getAddress(), medicalRecord.getMedications(), medicalRecord.getAllergies()));
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return new Flood(addresses);
 	}
 	
 	@PostConstruct

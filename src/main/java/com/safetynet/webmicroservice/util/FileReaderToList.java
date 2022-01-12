@@ -89,4 +89,76 @@ public class FileReaderToList {
 		}
 		return null;
 	}
+	
+	public List<MedicalRecord> getMedicalRecordToListTest() {
+		try {
+		    // create Gson instance
+		    Gson gson = new Gson();
+
+		    // create a reader
+		    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATHTEST));
+
+		    MedicalRecords medicalRecords = gson.fromJson(reader, MedicalRecords.class);
+		    List<MedicalRecord> medicalRecord = medicalRecords.getMedicalRecords();
+		    
+		    // close reader
+		    reader.close();
+		    
+		    return medicalRecord;
+		    
+		    
+		    
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+		return null;
+	}
+		
+		public List<Firestation> getFirestationToListTest() {
+			try {
+			    // create Gson instance
+			    Gson gson = new Gson();
+
+			    // create a reader
+			    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATHTEST));
+
+			    Firestations firestations = gson.fromJson(reader, Firestations.class);
+			    List<Firestation> firestation = firestations.getFirestation();
+			    
+			    // close reader
+			    reader.close();
+			    
+			    return firestation;
+			    
+			    
+			    
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
+			return null;
+		}
+		
+		public List<Person> getPersonToListTest() {
+			try {
+			    // create Gson instance
+			    Gson gson = new Gson();
+
+			    // create a reader
+			    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATHTEST));
+
+			    Persons persons = gson.fromJson(reader, Persons.class);
+			    List<Person> person = persons.getPerson();
+			    
+			    // close reader
+			    reader.close();
+			    
+			    return person;
+			    
+			    
+			    
+			} catch (Exception ex) {
+			    ex.printStackTrace();
+			}
+			return null;
+		}
 }

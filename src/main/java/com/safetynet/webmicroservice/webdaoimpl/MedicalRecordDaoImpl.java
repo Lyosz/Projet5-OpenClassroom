@@ -1,6 +1,5 @@
 package com.safetynet.webmicroservice.webdaoimpl;
 
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,20 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.webmicroservice.constants.DataInMemory;
+import com.safetynet.webmicroservice.util.IdToFirstAndLastName;
+import com.safetynet.webmicroservice.webdao.MedicalRecordsDao;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+
 @Service
-public class MedicalRecordDaoImpl {
+public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 
 	@Autowired
 	DataInMemory data;
+	@Autowired
+	private IdToFirstAndLastName idTo;
 	
-	//This section will be changed
 	List<MedicalRecord> medicalRecords;
-	//end of section
 	
-	public MedicalRecord getMedicalRecordByNameAndLastname(String firstName, String lastName){
+	@Override
+	public MedicalRecord getMedicalRecordByNameAndLastname(String id){
+		String firstname = idTo.getFirstName(id);
+		String lastname = idTo.getLastName(id);
 		for(MedicalRecord medicalRecordInfo : medicalRecords) {
-			if (medicalRecordInfo.getFirstName().equals(firstName) && medicalRecordInfo.getLastName().equals(lastName)) {
+			if (medicalRecordInfo.getFirstName().equals(firstname) && medicalRecordInfo.getLastName().equals(lastname)) {
 	    		return medicalRecordInfo;
 	    	}
 	    	
@@ -30,16 +35,18 @@ public class MedicalRecordDaoImpl {
 		}
 		return null;
 	}
-	
+	@Override
 	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
 		medicalRecords.add(medicalRecord);
 		return medicalRecord;
 	}
 	
-	public boolean deleteMedicalRecord(String firstName, String lastName) {
-		
+	@Override
+	public boolean deleteMedicalRecord(String id) {
+		String firstname = idTo.getFirstName(id);
+		String lastname = idTo.getLastName(id);
 		for(MedicalRecord medicalRecordInfo : medicalRecords) {
-			if (medicalRecordInfo.getFirstName().equals(firstName) && medicalRecordInfo.getLastName().equals(lastName)) {
+			if (medicalRecordInfo.getFirstName().equals(firstname) && medicalRecordInfo.getLastName().equals(lastname)) {
 				medicalRecords.remove(medicalRecordInfo);
 				return true;
 	    	}
@@ -47,6 +54,7 @@ public class MedicalRecordDaoImpl {
 	}
 		return false;
 }
+	@Override
 	public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord) {
 		String firstName = medicalRecord.getFirstName();
 		String lastName = medicalRecord.getLastName();

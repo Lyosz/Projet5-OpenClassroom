@@ -1,44 +1,44 @@
 package com.safetynet.webmicroservice.service;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.webmicroservice.webdao.FirestationDao;
-import com.safetynet.webmicroservice.webmodel.Firestations;
+import com.safetynet.webmicroservice.webdaoimpl.FirestationDaoImpl;
+import com.safetynet.webmicroservice.webmodel.Firestation;
+
 @Component
-public class FirestationService implements FirestationDao{
+public class FirestationService {
 
-	@Override
-	public List<Firestations> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	@Autowired
+	FirestationDaoImpl firestationDaoImpl;
+
+	public Firestation findByStation(String station) {
+		
+		return firestationDaoImpl.getFirestationByStation(station);
 	}
 
-	@Override
-	public String findById(int station) {
-		// TODO Auto-generated method stub
-		return null;
+	public Firestation findByAddress(String address) {
+		
+		return firestationDaoImpl.getFirestationByAddress(address);
 	}
 
-	@Override
-	public String findById(String address) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Firestation save(Firestation firestation) {
+		
+		return firestationDaoImpl.saveFirestation(firestation);
 	}
 
-	@Override
-	public String save(Firestations firestation) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Firestation update(Firestation firestation) {
+		
+		return firestationDaoImpl.updateFirestation(firestation);
 	}
 
-	@Override
-	public String update(Firestations firestation) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteByAddress(String address) {
+		firestationDaoImpl.deleteFirestationByAddress(address);
 	}
-
 	
-
+	public void deleteByStation(String station) {
+		firestationDaoImpl.deleteFirestationByStation(station);
+	}
 }

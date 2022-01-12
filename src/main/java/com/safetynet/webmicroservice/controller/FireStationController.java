@@ -1,40 +1,68 @@
 package com.safetynet.webmicroservice.controller;
 
+import java.net.URI;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.safetynet.webmicroservice.webmodel.Firestations;
+import com.safetynet.webmicroservice.exception.UserNotFoundException;
+import com.safetynet.webmicroservice.service.FirestationService;
+import com.safetynet.webmicroservice.webmodel.Firestation;
 
 @RestController
-public class FireStationController {
+@RequestMapping("/firestation")
+public class FirestationController {
 
-	@PostMapping(value="/firestation")
-	public String postNewFirestation(@RequestBody Firestations firestation) {
-		return "New Firestation";
-		
-	}
-	@PutMapping(value="/firestation/{address}")
-	public String updateFirestation(@RequestBody @PathVariable String address) {
-		return "Replacement";
+	@Autowired
+	FirestationService firestationService;
+	
+	@PostMapping
+	public ResponseEntity<Firestation> postNewFirestation(@RequestBody Firestation firestation) {
+		Firestation savedFirestation = firestationService.save(firestation);
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{address}").buildAndExpand(savedFirestation.getAddress()).toUri();
+		return ResponseEntity.created(location).build();	
 	}
 	
-	@DeleteMapping(value="/firestation/{address}")
-	public String deleteFirestation(@PathVariable String address) {
-		return "Firestation deleted";
-	}
-		
-	@PutMapping(value="/firestation/{station}")
-	public String updateFirestation(@RequestBody @PathVariable int station) {
-		return "Replacement";
+	@PutMapping(value="/{address}")
+	public Firestation updateFirestationByAddress(@RequestBody Firestation firestation, @PathVariable String address) {
+		Firestation updatedFirestation =  firestationService.update(firestation);
+		if(updatedFirestation==null) {
+			throw new UserNotFoundException("address: "+ address);
+		}
+		return firestation;
 	}
 	
-	@DeleteMapping(value="/firestation/{station}")
-	public String deleteFirestation(@PathVariable int station) {
-		return "Firestation deleted";
+	@DeleteMapping(value="/{address}")
+	public void deleteFirestationByAddress(@PathVariable String address) {
+		Firestation deletedFirestation = firestationService.deleteByAddress(address);
+		if(deletedFirestation==null) {
+			throw new UserNotFoundException("address: "+ address);
+		}
+	}
+		
+	@PutMapping(value="/{station}")
+	public Firestation updateFirestationByStation(@RequestBody Firestation firestation, @PathVariable String station) {
+		Firestation updatedFirestation =  firestationService.update(firestation);
+		if(updatedFirestation==null) {
+			throw new UserNotFoundException("station: "+ station);
+		}
+		return firestation;
+	}
+	
+	@DeleteMapping(value="/{station}")
+	public void deleteFirestationByStation(@PathVariable String station) {
+		Firestation deletedFirestation = firestationService.deleteByAddress(station);
+		if(deletedFirestation==null) {
+			throw new UserNotFoundException("station: "+ station);
+		}
 	}
 	
 }

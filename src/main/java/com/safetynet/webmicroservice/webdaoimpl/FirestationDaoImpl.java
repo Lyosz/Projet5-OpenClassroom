@@ -6,20 +6,20 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.safetynet.webmicroservice.constants.DataInMemory;
-import com.safetynet.webmicroservice.util.FileReaderToList;
+import com.safetynet.webmicroservice.webdao.FirestationDao;
 import com.safetynet.webmicroservice.webmodel.Firestation;
+
 @Service
-public class FirestationDaoImpl {
+public class FirestationDaoImpl implements FirestationDao{
 
 	@Autowired
 	DataInMemory data;
-	
-	//This section will be changed
-	List<Firestation> firestations;
-	//end of section
 
+	List<Firestation> firestations;
+
+	
+	@Override
 	public Firestation getFirestationByAddress(String address){
 		for(Firestation firestation : firestations) {
 			if (firestation.getAddress().equals(address)) {
@@ -31,47 +31,63 @@ public class FirestationDaoImpl {
 		return null;
 	}
 	
-	public boolean saveFirestation(Firestation firestation) {
+	@Override
+	public Firestation saveFirestation(Firestation firestation) {
 			firestations.add(firestation);
-			return true;
+			return null;
 		
 		
 	}
 	
-	public boolean deleteFirestation(String station) {
+	@Override
+	public void deleteFirestationByStation(String station) {
 		for(Firestation firestationInfo : firestations) {
 			if (firestationInfo.getStation().equals(station)) {
-				firestations.remove(firestationInfo);
-				return true;
+				firestations.remove(firestationInfo);	
 	    	}
-		
-	}
-		return false;
-		
+		}		
 	}
 	
-	public List<Firestation> getAllFirestations() {
-		FileReaderToList listFromFile = new FileReaderToList();
-		List<Firestation> firestations = listFromFile.getFirestationToList();
-		return firestations;
-	}
-	
-public boolean updateMedicalRecord(Firestation firestation) {
+	@Override
+	public Firestation updateFirestation(Firestation firestation) {
 		String station = firestation.getStation();
 		
 		for(Firestation firestationInfo : firestations) {
 			if (firestationInfo.getStation().equals(station)) {
 				firestations.remove(firestationInfo);
 				firestations.add(firestation);
-				return true;
+				return firestation;
 	    	}
 		
+		}
+		return null;
 	}
-		return false;
+
+	@Override
+	public Firestation getFirestationByStation(String station) {
+		for(Firestation firestation : firestations) {
+			if (firestation.getStation().equals(station)) {
+		    	return firestation;
+
+	    	}
+	    
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteFirestationByAddress(String address) {
+		for(Firestation firestationInfo : firestations) {
+			if (firestationInfo.getAddress().equals(address)) {
+				firestations.remove(firestationInfo);	
+	    	}
+		}	
+		
 	}
 
 	@PostConstruct
 	private void loadData() {
 		firestations = data.getFirestation();
 	}
+	
 }

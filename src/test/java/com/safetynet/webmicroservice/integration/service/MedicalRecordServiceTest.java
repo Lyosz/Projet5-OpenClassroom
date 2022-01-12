@@ -1,9 +1,11 @@
 package com.safetynet.webmicroservice.integration.service;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 
+@SpringBootTest
 public class MedicalRecordServiceTest {
 
 	@Test
