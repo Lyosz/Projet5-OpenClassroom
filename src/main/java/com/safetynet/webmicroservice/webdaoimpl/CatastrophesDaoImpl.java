@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.safetynet.webmicroservice.constants.DataInMemory;
 import com.safetynet.webmicroservice.util.AgeCalculator;
@@ -17,7 +17,7 @@ import com.safetynet.webmicroservice.webmodel.Flood;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 import com.safetynet.webmicroservice.webmodel.Person;
 
-@Service
+@Repository
 public class CatastrophesDaoImpl {
 
 	@Autowired
@@ -36,7 +36,7 @@ public class CatastrophesDaoImpl {
 	Flood flood;
 	List<Address> addresses;
 	
-	public List<Fire> fireAlert(String address) {
+	public List<Fire> getfireAlert(String address) {
 		personsAtAddress = null;
 		
 		for(Person person: persons) {
@@ -62,9 +62,9 @@ public class CatastrophesDaoImpl {
 		return personsAtAddress;
 	}
 	
-	public Flood floodAlert(String strStations){
+	public Flood getfloodAlert(String strStations){
 		addresses = null;
-		String[] stations = stringToListStation.toListStation(strStations);
+		List<String> stations = stringToListStation.toListStation(strStations);
 		for(String station: stations) {
 			
 			for(Firestation firestation: firestations) {

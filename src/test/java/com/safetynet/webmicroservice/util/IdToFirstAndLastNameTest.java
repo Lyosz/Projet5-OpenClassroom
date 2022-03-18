@@ -1,28 +1,39 @@
 package com.safetynet.webmicroservice.util;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
-@SpringBootTest
 public class IdToFirstAndLastNameTest {
 
-	IdToFirstAndLastName idToFirstAndLastName = new IdToFirstAndLastName();
+	private IdToFirstAndLastName idToFirstAndLastName = new IdToFirstAndLastName();
+	private String id;
 	
-	final private String id = "Theodore-Tres";
+	/*
+	 * BeforeEach and BeforeAll doesn't work.
+	 * Don't know why, how.
+	 * 
+	 */
+	
+	//@BeforeEach
+	//public void setup() {
+	//	idToFirstAndLastName = new IdToFirstAndLastName();
+	//	id = "Theodore-Tres";
+	//}
 	
 	@Test
 	public void idToFirstname() {
+		id = "Theodore-Tres";
 		final String firstname = "Theodore";
-		String firstnameTest = idToFirstAndLastName.getLastName(id);
-		assertEquals(firstname, firstnameTest);
+		String firstnameTest = idToFirstAndLastName.getFirstName(id);
+		Assertions.assertEquals(firstname, firstnameTest);
 	}
 	
 	@Test
 	public void idToLastname() {
+		id = "Theodore-Tres";
 		final String lastname = "Tres";
 		String lastnameTest = idToFirstAndLastName.getLastName(id);
-		assertEquals(lastname, lastnameTest);
+		Assertions.assertEquals(lastname, lastnameTest);
 	}
 }

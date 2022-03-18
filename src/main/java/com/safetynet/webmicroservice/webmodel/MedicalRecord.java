@@ -1,15 +1,29 @@
 package com.safetynet.webmicroservice.webmodel;
 
-import java.util.Arrays;
+import java.util.List;
 
 public class MedicalRecord {
 
 	private String firstName;
 	private String lastName;
 	private String birthdate;
-	private String[] medications;
-	private String[] allergies;
+	private List<String> medications;
+	private List<String> allergies;
 	
+	public MedicalRecord() {
+		
+	}
+
+	public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications,
+			List<String> allergies) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthdate = birthdate;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -28,24 +42,25 @@ public class MedicalRecord {
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
 	}
-	public String[] getMedications() {
+	public List<String> getMedications() {
 		return medications;
 	}
-	public void setMedications(String[] medications) {
+	public void setMedications(List<String> medications) {
 		this.medications = medications;
 	}
-	public String[] getAllergies() {
+	public List<String> getAllergies() {
 		return allergies;
 	}
-	public void setAllergies(String[] allergies) {
+	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "MedicalRecordsInfo [firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
-				+ ", medications=" + Arrays.toString(medications) + ", allergies=" + Arrays.toString(allergies) + "]";
+		return "MedicalRecord [firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
+				+ ", medications=" + medications + ", allergies=" + allergies + "]";
 	}
+	
 	
 	
 }

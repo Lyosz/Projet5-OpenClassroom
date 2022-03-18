@@ -1,23 +1,24 @@
 package com.safetynet.webmicroservice.webmodel;
 
+import java.util.List;
 
-public class Fire {
+public class Fire implements Catastrophes{
 
 	private String address;
 	private String station;
 	private String name;
 	private String phone;
 	private long age;
-	private String[] medications;
-	private String[] allergies;
+	private List<String> medications;
+	private List<String> allergies;
 	
 	public Fire() {
 		
 	}
 	
 	
-	public Fire(String address, String station, String name, String phone, long age, String[] medications,
-			String[] allergies) {
+	public Fire(String address, String station, String name, String phone, long age, List<String> medications,
+			List<String> allergies) {
 		
 		this.address = address;
 		this.station = station;
@@ -59,16 +60,16 @@ public class Fire {
 	public void setAge(long age) {
 		this.age = age;
 	}
-	public String[] getMedications() {
+	public List<String> getMedications() {
 		return medications;
 	}
-	public void setMedications(String[] medications) {
+	public void setMedications(List<String> medications) {
 		this.medications = medications;
 	}
-	public String[] getAllergies() {
+	public List<String> getAllergies() {
 		return allergies;
 	}
-	public void setAllergies(String[] allergies) {
+	public void setAllergies(List<String> allergies) {
 		this.allergies = allergies;
 	}
 	

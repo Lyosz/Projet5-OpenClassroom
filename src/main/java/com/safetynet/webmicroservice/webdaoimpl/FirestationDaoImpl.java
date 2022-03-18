@@ -5,19 +5,26 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import com.safetynet.webmicroservice.constants.DataInMemory;
 import com.safetynet.webmicroservice.webdao.FirestationDao;
 import com.safetynet.webmicroservice.webmodel.Firestation;
 
-@Service
+@Repository
 public class FirestationDaoImpl implements FirestationDao{
-
+	
 	@Autowired
-	DataInMemory data;
+	private DataInMemory data;
 
-	List<Firestation> firestations;
+	private List<Firestation> firestations;
 
+	FirestationDaoImpl(){
+		
+	}
+	
+	FirestationDaoImpl(List<Firestation> firestationsTest){
+		this.firestations = firestationsTest;
+	}
 	
 	@Override
 	public Firestation getFirestationByAddress(String address){
@@ -34,18 +41,20 @@ public class FirestationDaoImpl implements FirestationDao{
 	@Override
 	public Firestation saveFirestation(Firestation firestation) {
 			firestations.add(firestation);
-			return null;
+			return firestation;
 		
 		
 	}
 	
 	@Override
-	public void deleteFirestationByStation(String station) {
+	public Firestation deleteFirestationByStation(String station) {
 		for(Firestation firestationInfo : firestations) {
 			if (firestationInfo.getStation().equals(station)) {
-				firestations.remove(firestationInfo);	
+				firestations.remove(firestationInfo);
+				return firestationInfo;
 	    	}
-		}		
+		}	
+		return null;
 	}
 	
 	@Override
@@ -76,13 +85,14 @@ public class FirestationDaoImpl implements FirestationDao{
 	}
 
 	@Override
-	public void deleteFirestationByAddress(String address) {
+	public Firestation deleteFirestationByAddress(String address) {
 		for(Firestation firestationInfo : firestations) {
 			if (firestationInfo.getAddress().equals(address)) {
 				firestations.remove(firestationInfo);	
+				return firestationInfo;
 	    	}
 		}	
-		
+		return null;
 	}
 
 	@PostConstruct

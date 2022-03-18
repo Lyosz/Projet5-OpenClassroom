@@ -5,10 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 import com.safetynet.webmicroservice.constants.JsonPathConstant;
+import com.safetynet.webmicroservice.controller.MedicalRecordController;
 import com.safetynet.webmicroservice.webmodel.Firestation;
 import com.safetynet.webmicroservice.webmodel.Firestations;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
@@ -18,17 +21,41 @@ import com.safetynet.webmicroservice.webmodel.Persons;
 @Component
 public class FileReaderToList {
 
+	private static Logger log = LogManager.getLogger(MedicalRecordController.class);
+	
+	private String JSONPATH = JsonPathConstant.JSONPATH;
+	
+	private Reader reader;
+	
+	private Gson gson;
+	
+	private MedicalRecords medicalRecords;
+	private Firestations firestations;
+	private Persons persons;
+	
+	private List<MedicalRecord> medicalRecord;
+	private List<Firestation> firestation;
+	private List<Person> person;
+	
+	public FileReaderToList(){
+		
+	}
+	
+	public FileReaderToList(String JSONPATHTEST) {
+		this.JSONPATH = JSONPATHTEST;
+	}
+	
 	public List<MedicalRecord> getMedicalRecordToList() {
 	try {
 	    // create Gson instance
-	    Gson gson = new Gson();
+	    gson = new Gson();
 
 	    // create a reader
-	    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATH));
+	    reader = Files.newBufferedReader(Paths.get(JSONPATH));
 
-	    MedicalRecords medicalRecords = gson.fromJson(reader, MedicalRecords.class);
-	    List<MedicalRecord> medicalRecord = medicalRecords.getMedicalRecords();
-	    
+	    medicalRecords = gson.fromJson(reader, MedicalRecords.class);
+	    medicalRecord = medicalRecords.getMedicalRecords();
+	    log.info("Medical Records?",medicalRecords);
 	    // close reader
 	    reader.close();
 	    
@@ -42,16 +69,39 @@ public class FileReaderToList {
 	return null;
 }
 	
+	public MedicalRecords getMedicalRecordToListToVerify() {
+		try {
+		    // create Gson instance
+		    gson = new Gson();
+
+		    // create a reader
+		    reader = Files.newBufferedReader(Paths.get(JSONPATH));
+
+		    medicalRecords = gson.fromJson(reader, MedicalRecords.class);
+		    log.info("Medical Records?",medicalRecords);
+		    // close reader
+		    reader.close();
+		    
+		    return medicalRecords;
+		    
+		    
+		    
+		} catch (Exception ex) {
+		    ex.printStackTrace();
+		}
+		return null;
+	}
+	
 	public List<Firestation> getFirestationToList() {
 		try {
 		    // create Gson instance
-		    Gson gson = new Gson();
+		    gson = new Gson();
 
 		    // create a reader
-		    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATH));
+		    reader = Files.newBufferedReader(Paths.get(JSONPATH));
 
-		    Firestations firestations = gson.fromJson(reader, Firestations.class);
-		    List<Firestation> firestation = firestations.getFirestation();
+		    firestations = gson.fromJson(reader, Firestations.class);
+		    firestation = firestations.getFirestation();
 		    
 		    // close reader
 		    reader.close();
@@ -69,13 +119,13 @@ public class FileReaderToList {
 	public List<Person> getPersonToList() {
 		try {
 		    // create Gson instance
-		    Gson gson = new Gson();
+		    gson = new Gson();
 
 		    // create a reader
-		    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATH));
+		    reader = Files.newBufferedReader(Paths.get(JSONPATH));
 
-		    Persons persons = gson.fromJson(reader, Persons.class);
-		    List<Person> person = persons.getPerson();
+		    persons = gson.fromJson(reader, Persons.class);
+		    person = persons.getPerson();
 		    
 		    // close reader
 		    reader.close();
@@ -90,75 +140,4 @@ public class FileReaderToList {
 		return null;
 	}
 	
-	public List<MedicalRecord> getMedicalRecordToListTest() {
-		try {
-		    // create Gson instance
-		    Gson gson = new Gson();
-
-		    // create a reader
-		    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATHTEST));
-
-		    MedicalRecords medicalRecords = gson.fromJson(reader, MedicalRecords.class);
-		    List<MedicalRecord> medicalRecord = medicalRecords.getMedicalRecords();
-		    
-		    // close reader
-		    reader.close();
-		    
-		    return medicalRecord;
-		    
-		    
-		    
-		} catch (Exception ex) {
-		    ex.printStackTrace();
-		}
-		return null;
-	}
-		
-		public List<Firestation> getFirestationToListTest() {
-			try {
-			    // create Gson instance
-			    Gson gson = new Gson();
-
-			    // create a reader
-			    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATHTEST));
-
-			    Firestations firestations = gson.fromJson(reader, Firestations.class);
-			    List<Firestation> firestation = firestations.getFirestation();
-			    
-			    // close reader
-			    reader.close();
-			    
-			    return firestation;
-			    
-			    
-			    
-			} catch (Exception ex) {
-			    ex.printStackTrace();
-			}
-			return null;
-		}
-		
-		public List<Person> getPersonToListTest() {
-			try {
-			    // create Gson instance
-			    Gson gson = new Gson();
-
-			    // create a reader
-			    Reader reader = Files.newBufferedReader(Paths.get(JsonPathConstant.JSONPATHTEST));
-
-			    Persons persons = gson.fromJson(reader, Persons.class);
-			    List<Person> person = persons.getPerson();
-			    
-			    // close reader
-			    reader.close();
-			    
-			    return person;
-			    
-			    
-			    
-			} catch (Exception ex) {
-			    ex.printStackTrace();
-			}
-			return null;
-		}
 }

@@ -15,11 +15,19 @@ public class CatastrophesService {
 	@Autowired
 	private CatastrophesDaoImpl catastrophesDaoImpl;
 	
+	public CatastrophesService() {
+		
+	}
+	
+	public CatastrophesService(CatastrophesDaoImpl catastrophesDaoImplTest) {
+		this.catastrophesDaoImpl = catastrophesDaoImplTest;
+	}
+
 	public List<Fire> fireAlertService(String address) {
-		return catastrophesDaoImpl.fireAlert(address);
+		return catastrophesDaoImpl.getfireAlert(address);
 	}
 	
 	public Flood floodAlertService(String station) {
-		return catastrophesDaoImpl.floodAlert(station);
+		return catastrophesDaoImpl.getfloodAlert(station);
 	}
 }

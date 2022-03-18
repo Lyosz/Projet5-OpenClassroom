@@ -2,7 +2,7 @@ package com.safetynet.webmicroservice.webmodel;
 
 import java.util.List;
 
-public class Flood {
+public class Flood implements Catastrophes{
 
 	private List<Address> address;
 

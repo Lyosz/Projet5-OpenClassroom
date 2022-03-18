@@ -11,20 +11,23 @@ public class IdToFirstAndLastName {
 	 * char @c 
 	 */
 	
-	private char c = '-';
+	private String c = "-";
 	/**
 	 * Getting firstname by substring the second part of id  
 	 * by the char at the last index
 	 */
+	
+	private String[] getFullName(String id) {
+		String[] fullname = id.split(c);
+		return fullname;
+	}
+	
 	public String getFirstName(String id) {
 		
-		for(int i=0; i< id.length(); i++ ) {
-			if(id.charAt(i)==c) {
-				String firstName = id.substring(0,i);
-				return firstName;
-			}
-		}
-		return null;
+
+		String[] fullname = getFullName(id);
+		String firstname = fullname[0];
+		return firstname;
 	}
 	/**
 	 * Getting lastname by substring the first part of id  
@@ -32,13 +35,9 @@ public class IdToFirstAndLastName {
 	 */
 	public String getLastName(String id) {
 		
-		for(int i=0; i< id.length(); i++ ) {
-			if(id.charAt(i)==c) {
-				String lastName = id.substring(i+1);
-				return lastName;
-			}
-		}
-			
-		return null;
+		String[] fullname = getFullName(id);
+		String lastName = fullname[1];
+		return lastName;
+
 	}
 }

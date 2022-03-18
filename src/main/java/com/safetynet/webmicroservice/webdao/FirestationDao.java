@@ -10,7 +10,7 @@ public interface FirestationDao {
     public Firestation getFirestationByAddress(String address);
     public Firestation saveFirestation(Firestation firestation);
     public Firestation updateFirestation(Firestation firestation);
-    public void deleteFirestationByAddress(String address);
-	public void deleteFirestationByStation(String station);
+    public Firestation deleteFirestationByAddress(String address);
+	public Firestation deleteFirestationByStation(String station);
 	
 }

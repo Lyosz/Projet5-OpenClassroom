@@ -15,7 +15,14 @@ public class PersonService{
 	private PersonDaoImpl personDaoImpl;
 	@Autowired
 	IdToFirstAndLastName idFirstAndLastName;
-	
+	/**
+	 * For test use only
+	 * @param personDaoImplTest = Mock Dao
+	 */
+	public PersonService(PersonDaoImpl personDaoImplTest) {
+		this.personDaoImpl = personDaoImplTest;
+	}
+
 	/**
 	 *
 	 **/

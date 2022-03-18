@@ -13,19 +13,19 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestController  
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
 
-	@ExceptionHandler(Exception.class)
-	public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
-		ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage(),request.getDescription(false));
-		return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+	//@ExceptionHandler(Exception.class)
+	//public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
+	//	ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage(),request.getDescription(false));
+	//	return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	//}
 
-	@ExceptionHandler(UserNotFoundException.class)  
+	//@ExceptionHandler(UserNotFoundException.class)  
 	//override method of ResponseEntityExceptionHandler class  
-	public final ResponseEntity<Object> handleUserNotFoundExceptions(UserNotFoundException ex, WebRequest request)  {  
+	//public final ResponseEntity<Object> handleUserNotFoundExceptions(UserNotFoundException ex, WebRequest request)  {  
 		
 	//creating exception response structure  
-	ExceptionResponse exceptionResponse= new ExceptionResponse(ex.getMessage(), request.getDescription(false));  
+	//ExceptionResponse exceptionResponse= new ExceptionResponse(ex.getMessage(), request.getDescription(false));  
 	//returning exception structure and Not Found status   
-	return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);  
-	}     
+	//return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);  
+	//}     
 }

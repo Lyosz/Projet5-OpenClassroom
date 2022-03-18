@@ -12,6 +12,10 @@ public class FirestationService {
 	@Autowired
 	FirestationDaoImpl firestationDaoImpl;
 
+	public FirestationService(FirestationDaoImpl firestationDaoImplTest) {
+		this.firestationDaoImpl = firestationDaoImplTest;
+	}
+
 	public Firestation findByStation(String station) {
 		
 		return firestationDaoImpl.getFirestationByStation(station);
@@ -34,11 +38,11 @@ public class FirestationService {
 		return firestationDaoImpl.updateFirestation(firestation);
 	}
 
-	public void deleteByAddress(String address) {
-		firestationDaoImpl.deleteFirestationByAddress(address);
+	public Firestation deleteByAddress(String address) {
+		return firestationDaoImpl.deleteFirestationByAddress(address);
 	}
 	
-	public void deleteByStation(String station) {
-		firestationDaoImpl.deleteFirestationByStation(station);
+	public Firestation deleteByStation(String station) {
+		return firestationDaoImpl.deleteFirestationByStation(station);
 	}
 }

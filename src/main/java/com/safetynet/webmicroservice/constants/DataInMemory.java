@@ -10,16 +10,20 @@ import org.springframework.stereotype.Component;
 import com.safetynet.webmicroservice.util.FileReaderToList;
 import com.safetynet.webmicroservice.webmodel.Firestation;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.MedicalRecords;
 import com.safetynet.webmicroservice.webmodel.Person;
+
 @Component
 public class DataInMemory {
 
 	@Autowired
 	FileReaderToList fileReaderToList;
 	
-	public List<MedicalRecord> listMedicalRecords;
-	public List<Person> listPersons;
-	public List<Firestation> listFirestation;
+	private List<MedicalRecord> listMedicalRecords;
+	private List<Person> listPersons;
+	private List<Firestation> listFirestation;
+	
+	private MedicalRecords medicalRecordsToVerify;
 
 	public List<MedicalRecord> getMedicalRecords(){
 		return listMedicalRecords;
@@ -33,10 +37,16 @@ public class DataInMemory {
 		return listPersons;
 	}
 	
+	public MedicalRecords getMedicalRecordsToVerify(){
+		return medicalRecordsToVerify;
+	}
+	
 	@PostConstruct
 	public void loadData() {
 		listMedicalRecords = fileReaderToList.getMedicalRecordToList();
 		listPersons = fileReaderToList.getPersonToList();
 		listFirestation = fileReaderToList.getFirestationToList();
+		medicalRecordsToVerify = fileReaderToList.getMedicalRecordToListToVerify();
 	}
+	
 }

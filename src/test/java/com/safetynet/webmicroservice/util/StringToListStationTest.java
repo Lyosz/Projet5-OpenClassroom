@@ -1,11 +1,13 @@
 package com.safetynet.webmicroservice.util;
 
-import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Assertions;
 
-@SpringBootTest
+
 public class StringToListStationTest {
 
 	StringToListStation stringToListStation = new StringToListStation();
@@ -13,18 +15,22 @@ public class StringToListStationTest {
 	@Test
 	public void stationsToList() {
 		
-		final String[] station;
+		List<String> station = new ArrayList<String>();
+		station.add("1");
+		station.add("5");
+		station.add("6");
 		final String stations = "1,5,6";
-		String[] stationTest = stringToListStation.toListStation(stations);
-		assertEquals(stationTest, station);
+		List<String> stationTest = stringToListStation.toListStation(stations);
+		Assertions.assertEquals(stationTest, station);
 	}
 	
 	@Test
 	public void stationToList() {
 		
-		final String[] station;
+		final List<String> station = new ArrayList<String>();
+		station.add("2");
 		final String stations = "2";
-		String[] stationTest = stringToListStation.toListStation(stations);
-		assertEquals(stationTest, station);
+		List<String> stationTest = stringToListStation.toListStation(stations);
+		Assertions.assertEquals(stationTest, station);
 	}
 }

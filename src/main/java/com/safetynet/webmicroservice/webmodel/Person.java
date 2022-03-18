@@ -74,6 +74,36 @@ public class Person {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
 				+ city + ", zip=" + zip + ", phone=" + phone + ", email=" + email + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Person anotherPerson = (Person) obj;
+		
+		if(this.address != anotherPerson.address){
+			return false;
+		}
+		if(this.city != anotherPerson.city){
+			return false;
+		}
+		if(this.email != anotherPerson.email){
+			return false;
+		}
+		if(this.firstName != anotherPerson.firstName){
+			return false;
+		}
+		if(this.lastName != anotherPerson.lastName){
+			return false;
+		}
+		if(this.phone != anotherPerson.phone){
+			return false;
+		}
+		if(this.zip != anotherPerson.zip){
+			return false;
+		}
+		
+		return true;
+	}
+
 	
 	
 }

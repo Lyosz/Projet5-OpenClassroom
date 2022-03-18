@@ -3,36 +3,41 @@ package com.safetynet.webmicroservice.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.safetynet.webmicroservice.webdao.MedicalRecordsDao;
 import com.safetynet.webmicroservice.webdaoimpl.MedicalRecordDaoImpl;
 import com.safetynet.webmicroservice.webmodel.MedicalRecord;
 
 @Component
-public class MedicalRecordsService{
+public class MedicalRecordService{
 
 	@Autowired
-	private MedicalRecordDaoImpl medicalRecordService;
+	private MedicalRecordDaoImpl medicalRecordDaoImpl;
 	
+	public MedicalRecordService() {
+		
+	}
+	
+	public MedicalRecordService(MedicalRecordDaoImpl medicalRecordDaoImplTest) {
+		this.medicalRecordDaoImpl = medicalRecordDaoImplTest;
+	}
+
 	public MedicalRecord findById(String id) {
 		
-		return medicalRecordService.getMedicalRecordByNameAndLastname(id);
+		return medicalRecordDaoImpl.getMedicalRecordByNameAndLastname(id);
 	}
 
 	public MedicalRecord update(MedicalRecord medicalRecord) {
 
-		return medicalRecordService.updateMedicalRecord(medicalRecord);
+		return medicalRecordDaoImpl.updateMedicalRecord(medicalRecord);
 	}
 
 	public MedicalRecord save(MedicalRecord medicalRecord) {
 		
-		medicalRecordService.saveMedicalRecord(medicalRecord);
-		return null;
+		return medicalRecordDaoImpl.saveMedicalRecord(medicalRecord);
 	}
 
 	public boolean delete(String id) {
 		
-		medicalRecordService.deleteMedicalRecord(id);
-		return true;
+		return medicalRecordDaoImpl.deleteMedicalRecord(id);
 	}
 
 	
