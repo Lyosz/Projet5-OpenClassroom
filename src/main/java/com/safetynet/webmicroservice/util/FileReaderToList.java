@@ -3,25 +3,25 @@ package com.safetynet.webmicroservice.util;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.safetynet.webmicroservice.webmodel.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
 import com.safetynet.webmicroservice.constants.JsonPathConstant;
 import com.safetynet.webmicroservice.controller.MedicalRecordController;
-import com.safetynet.webmicroservice.webmodel.Firestation;
-import com.safetynet.webmicroservice.webmodel.Firestations;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
-import com.safetynet.webmicroservice.webmodel.MedicalRecords;
-import com.safetynet.webmicroservice.webmodel.Person;
-import com.safetynet.webmicroservice.webmodel.Persons;
+
 @Component
 public class FileReaderToList {
 
-	private static Logger log = LogManager.getLogger(MedicalRecordController.class);
+	private static Logger log = LogManager.getLogger(FileReaderToList.class);
 	
 	private String JSONPATH = JsonPathConstant.JSONPATH;
 	
@@ -29,33 +29,34 @@ public class FileReaderToList {
 	
 	private Gson gson;
 	
-	private MedicalRecords medicalRecords;
+	private Medicalrecords medicalRecords;
 	private Firestations firestations;
 	private Persons persons;
 	
-	private List<MedicalRecord> medicalRecord;
+	private List<Medicalrecord> medicalRecord;
 	private List<Firestation> firestation;
 	private List<Person> person;
-	
+
 	public FileReaderToList(){
+
+	}
+	
+	public FileReaderToList(String JSONPATHTEST){
+		this.JSONPATH = JSONPATHTEST;
 		
 	}
 	
-	public FileReaderToList(String JSONPATHTEST) {
-		this.JSONPATH = JSONPATHTEST;
-	}
-	
-	public List<MedicalRecord> getMedicalRecordToList() {
+	public List<Medicalrecord> getMedicalRecordToList() {
 	try {
 	    // create Gson instance
 	    gson = new Gson();
 
 	    // create a reader
 	    reader = Files.newBufferedReader(Paths.get(JSONPATH));
+	    
+	    medicalRecords = gson.fromJson(reader, Medicalrecords.class);
+		medicalRecord = medicalRecords.getMedicalRecords();
 
-	    medicalRecords = gson.fromJson(reader, MedicalRecords.class);
-	    medicalRecord = medicalRecords.getMedicalRecords();
-	    log.info("Medical Records?",medicalRecords);
 	    // close reader
 	    reader.close();
 	    
@@ -69,29 +70,6 @@ public class FileReaderToList {
 	return null;
 }
 	
-	public MedicalRecords getMedicalRecordToListToVerify() {
-		try {
-		    // create Gson instance
-		    gson = new Gson();
-
-		    // create a reader
-		    reader = Files.newBufferedReader(Paths.get(JSONPATH));
-
-		    medicalRecords = gson.fromJson(reader, MedicalRecords.class);
-		    log.info("Medical Records?",medicalRecords);
-		    // close reader
-		    reader.close();
-		    
-		    return medicalRecords;
-		    
-		    
-		    
-		} catch (Exception ex) {
-		    ex.printStackTrace();
-		}
-		return null;
-	}
-	
 	public List<Firestation> getFirestationToList() {
 		try {
 		    // create Gson instance
@@ -99,7 +77,7 @@ public class FileReaderToList {
 
 		    // create a reader
 		    reader = Files.newBufferedReader(Paths.get(JSONPATH));
-
+		    
 		    firestations = gson.fromJson(reader, Firestations.class);
 		    firestation = firestations.getFirestation();
 		    
@@ -125,7 +103,7 @@ public class FileReaderToList {
 		    reader = Files.newBufferedReader(Paths.get(JSONPATH));
 
 		    persons = gson.fromJson(reader, Persons.class);
-		    person = persons.getPerson();
+		    person = persons.getPersons();
 		    
 		    // close reader
 		    reader.close();

@@ -2,13 +2,13 @@ package com.safetynet.webmicroservice.webdao;
 
 import org.springframework.stereotype.Component;
 
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
 
 @Component
 public interface MedicalRecordsDao {
 
-	public MedicalRecord getMedicalRecordByNameAndLastname(String id);
-	public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord);
-	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord);
+	public Medicalrecord getMedicalRecordByNameAndLastname(String id);
+	public Medicalrecord updateMedicalRecord(Medicalrecord medicalRecord);
+	public Medicalrecord saveMedicalRecord(Medicalrecord medicalRecord);
 	public boolean deleteMedicalRecord(String id);
 }

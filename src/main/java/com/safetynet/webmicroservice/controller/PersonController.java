@@ -37,44 +37,44 @@ public class PersonController {
 	 * (through it would be probably better in a real scenario)
 	 *
 	 */
-	@ResponseStatus(value=HttpStatus.CREATED)
 	@PostMapping(path="/person")
-	public Person saveNewPerson(@RequestBody Person person) {
+	public ResponseEntity<Person> saveNewPerson(@RequestBody Person person) {
 		Person savedPerson = personService.save(person);
 		//URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{firstname}").buildAndExpand(savedPerson.getFirstName()).toUri();
 		log.info("Person succesfully saved");
 		//return ResponseEntity.created(location).build();
-		return savedPerson;
+		return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
 	}
-	@ResponseStatus(value=HttpStatus.CREATED)
+	
 	@PutMapping(path="/person/{id}")
-	public Person updatePerson(@PathVariable String id, @RequestBody Person person) {
+	public ResponseEntity<Person> updatePerson(@PathVariable String id, @RequestBody Person person) {
+		Person savedPerson = personService.update(person);
 		log.info("Person at "+ id +" succesfully changed");
-		return personService.update(person);
+		return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
 	}
-	@ResponseStatus(value=HttpStatus.NO_CONTENT)
+	
 	@DeleteMapping(path="/person/{id}")
-	public boolean deletePerson(@PathVariable String id) {
+	public ResponseEntity<String> deletePerson(@PathVariable String id) {
 		log.info("Person at "+ id +" succesfully deleted");
-		return personService.delete(id);
+		return new ResponseEntity<>("The person with id: " + id +" was deleted", HttpStatus.NO_CONTENT);
 	}
 	
-	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(path="/person/{id}")
-	public Person getPerson(@PathVariable String id) {
+	public ResponseEntity<Person> getPerson(@PathVariable String id) {
+		Person getPerson = personService.findById(id);
 		log.info("Person at "+ id +" succesfully got");
-		return personService.findById(id);
+		return new ResponseEntity<>(getPerson, HttpStatus.OK);
 	
 	}
 	
-	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(path="/personinfo")
-	public Person getAllPersoninfo(@RequestParam(value="firstName", required=false) String firstName, 
+	public ResponseEntity<Person> getAllPersoninfo(@RequestParam(value="firstName", required=false) String firstName, 
 								@RequestParam(value="lastName", required=true) String lastName) {
 		
 		String id = firstName + "-" + lastName;
+		Person getPerson = personService.findById(id);
 		log.info("Person with firstname= "+ firstName +" and lastname= "+ lastName +" succesfully got");
-		return personService.findById(id);
+		return new ResponseEntity<>(getPerson, HttpStatus.OK);
 				
 	}
 }

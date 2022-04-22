@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Persons {
 
-	List<Person> persons;
+	private List<Person> persons;
 	
-	public List<Person> getPerson() {
+	public List<Person> getPersons() {
 		return persons;
 	}
 

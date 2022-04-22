@@ -1,8 +1,10 @@
 package com.safetynet.webmicroservice.webmodel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class MedicalRecord {
+public class Medicalrecord {
 
 	private String firstName;
 	private String lastName;
@@ -10,12 +12,12 @@ public class MedicalRecord {
 	private List<String> medications;
 	private List<String> allergies;
 	
-	public MedicalRecord() {
+	public Medicalrecord() {
 		
 	}
 
-	public MedicalRecord(String firstName, String lastName, String birthdate, List<String> medications,
-			List<String> allergies) {
+	public Medicalrecord(String firstName, String lastName, String birthdate, List<String> medications,
+						 List<String> allergies) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,10 +59,12 @@ public class MedicalRecord {
 
 	@Override
 	public String toString() {
-		return "MedicalRecord [firstName=" + firstName + ", lastName=" + lastName + ", birthdate=" + birthdate
-				+ ", medications=" + medications + ", allergies=" + allergies + "]";
+		return "Medicalrecord{" +
+				"firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", birthdate='" + birthdate + '\'' +
+				", medications=" + medications +
+				", allergies=" + allergies +
+				'}';
 	}
-	
-	
-	
 }

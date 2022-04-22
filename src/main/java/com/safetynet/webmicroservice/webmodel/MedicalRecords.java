@@ -2,13 +2,12 @@ package com.safetynet.webmicroservice.webmodel;
 
 import java.util.List;
 
+public class Medicalrecords {
 
-public class MedicalRecords {
+	private List<Medicalrecord> medicalrecords;
 
-	List<MedicalRecord> medicalRecords;
-
-	public List<MedicalRecord> getMedicalRecords() {
-		return medicalRecords;
+	public List<Medicalrecord> getMedicalRecords() {
+		return medicalrecords;
 	}
 
 	

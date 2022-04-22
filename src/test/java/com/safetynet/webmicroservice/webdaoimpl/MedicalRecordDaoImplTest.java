@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.safetynet.webmicroservice.constants.DataInMemory;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
 import com.safetynet.webmicroservice.webmodel.Person;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,14 +21,14 @@ public class MedicalRecordDaoImplTest {
 	
 	private MedicalRecordDaoImpl medicalRecordDao;
 	
-	private MedicalRecord medicalRecord;
-	private MedicalRecord medicalRecordFromData1;
-	private MedicalRecord medicalRecordFromData2;
-	private MedicalRecord medicalRecordToSave;
-	private MedicalRecord medicalRecordToUpdate;
+	private Medicalrecord medicalRecord;
+	private Medicalrecord medicalRecordFromData1;
+	private Medicalrecord medicalRecordFromData2;
+	private Medicalrecord medicalRecordToSave;
+	private Medicalrecord medicalRecordToUpdate;
 	
-	private List<MedicalRecord> medicalRecords;
-	private List<MedicalRecord> medicalRecordFromFalseData;
+	private List<Medicalrecord> medicalRecords;
+	private List<Medicalrecord> medicalRecordFromFalseData;
 	
 	private String id;
 	
@@ -37,17 +37,16 @@ public class MedicalRecordDaoImplTest {
 	
 	@BeforeEach
 	public void load() {
-		medicalRecordFromFalseData = new ArrayList<MedicalRecord>();
+		medicalRecordFromFalseData = new ArrayList<Medicalrecord>();
 		medicalRecordFromFalseData.add(medicalRecordFromData1);
 		medicalRecordFromFalseData.add(medicalRecordFromData2);
+		
+		when(data.getMedicalRecords()).thenReturn(medicalRecordFromFalseData);
+		medicalRecords = data.getMedicalRecords();
 	}
 	
 	@Test
 	public void findById(){
-		
-		when(data.getMedicalRecords()).thenReturn(medicalRecordFromFalseData);
-		
-		medicalRecords = data.getMedicalRecords();
 		
 		medicalRecordDao = new MedicalRecordDaoImpl(medicalRecords);
 		medicalRecordDao.getMedicalRecordByNameAndLastname(id);
@@ -59,10 +58,6 @@ public class MedicalRecordDaoImplTest {
 	@Test
 	public void save() {
 		
-		when(data.getMedicalRecords()).thenReturn(medicalRecordFromFalseData);
-		
-		medicalRecords = data.getMedicalRecords();
-		
 		medicalRecordDao = new MedicalRecordDaoImpl(medicalRecords);
 		medicalRecordDao.saveMedicalRecord(medicalRecord);
 		Assertions.assertTrue(medicalRecords.contains(medicalRecord));
@@ -71,10 +66,6 @@ public class MedicalRecordDaoImplTest {
 	@Test
 	public void deleteByAddress() {
 		
-		when(data.getMedicalRecords()).thenReturn(medicalRecordFromFalseData);
-		
-		medicalRecords = data.getMedicalRecords();
-		
 		medicalRecordDao = new MedicalRecordDaoImpl(medicalRecords);
 		medicalRecordDao.deleteMedicalRecord(id);
 		Assertions.assertFalse(medicalRecords.contains(medicalRecord));
@@ -82,10 +73,6 @@ public class MedicalRecordDaoImplTest {
 	
 	@Test
 	public void update() {
-		
-		when(data.getMedicalRecords()).thenReturn(medicalRecordFromFalseData);
-		
-		medicalRecords = data.getMedicalRecords();
 		
 		medicalRecordDao = new MedicalRecordDaoImpl(medicalRecords);
 		medicalRecordDao.updateMedicalRecord(medicalRecord);

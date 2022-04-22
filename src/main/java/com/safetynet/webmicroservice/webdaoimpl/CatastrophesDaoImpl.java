@@ -14,7 +14,7 @@ import com.safetynet.webmicroservice.webmodel.Address;
 import com.safetynet.webmicroservice.webmodel.Fire;
 import com.safetynet.webmicroservice.webmodel.Firestation;
 import com.safetynet.webmicroservice.webmodel.Flood;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
 import com.safetynet.webmicroservice.webmodel.Person;
 
 @Repository
@@ -28,7 +28,7 @@ public class CatastrophesDaoImpl {
 	StringToListStation stringToListStation;
 	
 	List<Person> persons;
-	List<MedicalRecord> medicalRecords;
+	List<Medicalrecord> medicalRecords;
 	List<Firestation> firestations;
 	
 	List<Fire> personsAtAddress;
@@ -42,7 +42,7 @@ public class CatastrophesDaoImpl {
 		for(Person person: persons) {
 			if(person.getAddress().equals(address)) {
 				
-				for(MedicalRecord medicalRecord : medicalRecords) {
+				for(Medicalrecord medicalRecord : medicalRecords) {
 					if(medicalRecord.getFirstName().equals(person.getFirstName())
 					    && medicalRecord.getLastName().equals(person.getLastName())) {
 						
@@ -50,7 +50,7 @@ public class CatastrophesDaoImpl {
 							if(firestation.getAddress().equals(address)) {
 								String birthdate = medicalRecord.getBirthdate();
 								long age = ageCalculator.calculator(birthdate);
-								personsAtAddress.add(new Fire(address, firestation.getStation(), person.getLastName(), person.getPhone(), 
+								personsAtAddress.add(new Fire(address, firestation.getStation(), person.getLastName(), person.getPhone(),
 								age, medicalRecord.getMedications(), medicalRecord.getAllergies()));
 							}
 						}
@@ -73,7 +73,7 @@ public class CatastrophesDaoImpl {
 					for(Person person: persons) {
 						
 						if(person.getAddress().equals(firestation.getAddress())) {
-							for(MedicalRecord medicalRecord: medicalRecords) {
+							for(Medicalrecord medicalRecord: medicalRecords) {
 								
 								if(medicalRecord.getFirstName().equals(person.getFirstName())
 								    && medicalRecord.getLastName().equals(person.getLastName())) {

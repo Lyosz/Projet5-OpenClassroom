@@ -1,5 +1,6 @@
 package com.safetynet.webmicroservice.webmodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Fire implements Catastrophes{
@@ -18,7 +19,7 @@ public class Fire implements Catastrophes{
 	
 	
 	public Fire(String address, String station, String name, String phone, long age, List<String> medications,
-			List<String> allergies) {
+				List<String> allergies) {
 		
 		this.address = address;
 		this.station = station;

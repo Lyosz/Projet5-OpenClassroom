@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,18 +22,21 @@ public class CatastrophesController {
 	private static Logger log = LogManager.getLogger(CatastrophesController.class);
 	@Autowired
 	private CatastrophesService catastrophesService;
-	
-	@ResponseStatus(value = HttpStatus.OK)
+
+	private List<Fire> fireList;
+	private Flood flood;
+
 	@GetMapping(path="/fire")
-	public List<Fire> getAllPersonAtAddressWhenFire(@RequestParam(value="address") String address) {
+	public ResponseEntity<List<Fire>> getAllPersonAtAddressWhenFire(@RequestParam(value="address") String address) {
+		fireList = catastrophesService.fireAlertService(address);
 		log.info("Info of persons at " + address + " correctly got");
-		return catastrophesService.fireAlertService(address);
+		return new ResponseEntity<>(fireList, HttpStatus.OK);
 	}
-	
-	@ResponseStatus(value = HttpStatus.OK)
+
 	@GetMapping(path="/flood/stations")
-	public Flood getAllPersonAndAddressWhenFloodByStation(@RequestParam(value="stations") String station_numbers) {
+	public ResponseEntity<Flood> getAllPersonAndAddressWhenFloodByStation(@RequestParam(value="stations") String station_numbers) {
+		flood = catastrophesService.floodAlertService(station_numbers);
 		log.info("Info of persons from a list of stations");
-		return catastrophesService.floodAlertService(station_numbers);
+		return new ResponseEntity<>(flood, HttpStatus.OK);
 	}
 }

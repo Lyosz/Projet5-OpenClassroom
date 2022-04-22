@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.safetynet.webmicroservice.service.MedicalRecordService;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
 
 @RestController
 public class MedicalRecordController {
@@ -27,28 +27,38 @@ public class MedicalRecordController {
 	@Autowired
 	private MedicalRecordService medicalRecordService;
 	
-	@ResponseStatus(value=HttpStatus.CREATED)
 	@PostMapping(path="/medicalRecord")
-	public MedicalRecord postNewMedicalRecord(@RequestBody MedicalRecord medicalRecord) {
+	public ResponseEntity<Medicalrecord> postNewMedicalRecord(@RequestBody Medicalrecord medicalRecord) {
 		
-		MedicalRecord savedMedicalRecord = medicalRecordService.save(medicalRecord);
+		Medicalrecord savedMedicalRecord = medicalRecordService.save(medicalRecord);
 		//URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedMedicalRecord.getFirstName()).toUri();
 		log.info("Medical Record saved in Db");
-		//return ResponseEntity.created(location).build();	
-		return savedMedicalRecord;
+		return new ResponseEntity<>(savedMedicalRecord, HttpStatus.CREATED);
 	}
 	
-	@ResponseStatus(value=HttpStatus.CREATED)
 	@PutMapping(path="/medicalRecord/{id}")
-	public MedicalRecord updateMedicalRecord(@PathVariable String id, @RequestBody MedicalRecord medicalRecord) {
-		log.info("Medical Record with " + id + " correctly got");
-		return medicalRecordService.save(medicalRecord);
+	public ResponseEntity<Medicalrecord> updateMedicalRecord(@PathVariable String id, @RequestBody Medicalrecord medicalRecord) {
+		Medicalrecord updateMedicalRecord = medicalRecordService.update(medicalRecord);
+
+		if(updateMedicalRecord==null){
+			log.error("Medical Record with " + id + " was not found");
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		log.info("Medical Record with " + id + " correctly update");
+		return new ResponseEntity<>(updateMedicalRecord, HttpStatus.CREATED);
 	}
 	
-	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	@DeleteMapping(path="/medicalRecord/{id}")
-	public boolean deleteMedicalRecord(@PathVariable String id) {
-		log.info("Medical Record with " + id + " correctly deleted");
-		return medicalRecordService.delete(id);
+	public ResponseEntity<String> deleteMedicalRecord(@PathVariable String id) {
+		boolean deletedMedicalRecordBoll = medicalRecordService.delete(id);
+		if(deletedMedicalRecordBoll==true) {
+			log.info("Medical Record with " + id + " correctly deleted");
+			return new ResponseEntity<>("Succesfully deleted the Medical Record of id: " + id, HttpStatus.NO_CONTENT);
+		}
+			log.error("Medical Record with " + id + " was not found");
+			return new ResponseEntity<>("An error occured, the Medical Record of id: " + id +" was not found", HttpStatus.NOT_FOUND);
+		}
+		
 	}
-}
+

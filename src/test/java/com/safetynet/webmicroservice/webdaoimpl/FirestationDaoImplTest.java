@@ -47,16 +47,16 @@ public class FirestationDaoImplTest {
 		firestationFromFalseData = new ArrayList<Firestation>();
 		firestationFromFalseData.add(firestationRawDataFromDao1);
 		firestationFromFalseData.add(firestationRawDataFromDao2);
+		
+		when(data.getFirestation()).thenReturn(firestationFromFalseData);
+		
+		firestations = data.getFirestation();
+		firestationDao = new FirestationDaoImpl(firestations);
 	}
 	
 	@Test
 	public void findByAddress(){
 		
-		when(data.getFirestation()).thenReturn(firestationFromFalseData);
-		
-		firestations = data.getFirestation();
-		
-		firestationDao = new FirestationDaoImpl(firestations);
 		firestation = firestationDao.getFirestationByAddress(address);
 		
 		Assertions.assertTrue(firestation.equals(firestationRawDataFromDao1));
@@ -65,11 +65,6 @@ public class FirestationDaoImplTest {
 	@Test
 	public void findByStation(){
 		
-		when(data.getFirestation()).thenReturn(firestationFromFalseData);
-		
-		firestations = data.getFirestation();
-		
-		firestationDao = new FirestationDaoImpl(firestations);
 		firestation = firestationDao.getFirestationByStation(station);
 		
 		Assertions.assertTrue(firestation.equals(firestationRawDataFromDao1));
@@ -78,11 +73,6 @@ public class FirestationDaoImplTest {
 	@Test
 	public void save() {
 		
-		when(data.getFirestation()).thenReturn(firestationFromFalseData);
-		
-		firestations = data.getFirestation();
-		
-		firestationDao = new FirestationDaoImpl(firestations);
 		firestationDao.saveFirestation(firestationToSave);
 		
 		Assertions.assertTrue(firestations.contains(firestationToSave));
@@ -90,12 +80,7 @@ public class FirestationDaoImplTest {
 	
 	@Test
 	public void deleteByAddress() {
-
-		when(data.getFirestation()).thenReturn(firestationFromFalseData);
 		
-		firestations = data.getFirestation();
-		
-		firestationDao = new FirestationDaoImpl(firestations);
 		firestationDao.deleteFirestationByAddress(address);
 		
 		Assertions.assertFalse(firestations.contains(firestationRawDataFromDao1));
@@ -103,24 +88,14 @@ public class FirestationDaoImplTest {
 	
 	@Test
 	public void deleteByStation() {
-
-		when(data.getFirestation()).thenReturn(firestationFromFalseData);
 		
-		firestations = data.getFirestation();
-		
-		firestationDao = new FirestationDaoImpl(firestations);
 		firestationDao.deleteFirestationByStation(station);
 		
 		Assertions.assertFalse(firestations.contains(firestationRawDataFromDao1));
 	}
 	@Test
 	public void update() {
-
-		when(data.getFirestation()).thenReturn(firestationFromFalseData);
 		
-		firestations = data.getFirestation();
-		
-		firestationDao = new FirestationDaoImpl(firestations);
 		firestationDao.updateFirestation(firestationToUpdate);
 		
 		Assertions.assertTrue(firestations.contains(firestationToUpdate));

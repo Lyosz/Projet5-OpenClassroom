@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.safetynet.webmicroservice.constants.DataInMemory;
 import com.safetynet.webmicroservice.util.IdToFirstAndLastName;
 import com.safetynet.webmicroservice.webdao.MedicalRecordsDao;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
-import com.safetynet.webmicroservice.webmodel.MedicalRecords;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecords;
 
 @Repository
 public class MedicalRecordDaoImpl implements MedicalRecordsDao{
@@ -25,17 +25,15 @@ public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 	@Autowired
 	private IdToFirstAndLastName idTo;
 	
-	private List<MedicalRecord> medicalRecords;
+	private List<Medicalrecord> medicalRecords;
 	private String firstname;
 	private String lastname;
-	
-	private MedicalRecords MedRecord;
 	
 	/**
 	 * For test use only
 	 * @param medicalRecordsTest = In memory data to use in tests
 	 */
-	public MedicalRecordDaoImpl(List<MedicalRecord> medicalRecordsTest) {
+	public MedicalRecordDaoImpl(List<Medicalrecord> medicalRecordsTest) {
 		
 		this.medicalRecords = medicalRecordsTest;
 	}
@@ -45,10 +43,10 @@ public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 	}
 	
 	@Override
-	public MedicalRecord getMedicalRecordByNameAndLastname(String id){
+	public Medicalrecord getMedicalRecordByNameAndLastname(String id){
 		firstname = idTo.getFirstName(id);
 		lastname = idTo.getLastName(id);
-		for(MedicalRecord medicalRecordInfo : medicalRecords) {
+		for(Medicalrecord medicalRecordInfo : medicalRecords) {
 			if (medicalRecordInfo.getFirstName().equals(firstname) && medicalRecordInfo.getLastName().equals(lastname)) {
 	    		return medicalRecordInfo;
 	    	}
@@ -58,9 +56,7 @@ public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 		return null;
 	}
 	@Override
-	public MedicalRecord saveMedicalRecord(MedicalRecord medicalRecord) {
-		logger.info("All Medical Records: " + String.valueOf(MedRecord));
-		logger.info("Medical Record?: " + String.valueOf(medicalRecord));
+	public Medicalrecord saveMedicalRecord(Medicalrecord medicalRecord) {
 		medicalRecords.add(medicalRecord);
 		return medicalRecord;
 	}
@@ -69,7 +65,7 @@ public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 	public boolean deleteMedicalRecord(String id) {
 		firstname = idTo.getFirstName(id);
 		lastname = idTo.getLastName(id);
-		for(MedicalRecord medicalRecordInfo : medicalRecords) {
+		for(Medicalrecord medicalRecordInfo : medicalRecords) {
 			if (medicalRecordInfo.getFirstName().equals(firstname) && medicalRecordInfo.getLastName().equals(lastname)) {
 				medicalRecords.remove(medicalRecordInfo);
 				return true;
@@ -79,11 +75,11 @@ public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 		return false;
 }
 	@Override
-	public MedicalRecord updateMedicalRecord(MedicalRecord medicalRecord) {
+	public Medicalrecord updateMedicalRecord(Medicalrecord medicalRecord) {
 		firstname = medicalRecord.getFirstName();
 		lastname = medicalRecord.getLastName();
 		
-		for(MedicalRecord medicalRecordInfo : medicalRecords) {
+		for(Medicalrecord medicalRecordInfo : medicalRecords) {
 			if (medicalRecordInfo.getFirstName().equals(firstname) && medicalRecordInfo.getLastName().equals(lastname)) {
 				medicalRecords.remove(medicalRecordInfo);
 				medicalRecords.add(medicalRecord);
@@ -97,6 +93,5 @@ public class MedicalRecordDaoImpl implements MedicalRecordsDao{
 	@PostConstruct
 	private void loadData() {
 		medicalRecords = data.getMedicalRecords();
-		MedRecord = data.getMedicalRecordsToVerify();
 	}
 }

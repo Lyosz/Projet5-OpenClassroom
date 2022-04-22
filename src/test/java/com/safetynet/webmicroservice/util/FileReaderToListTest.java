@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import com.safetynet.webmicroservice.constants.JsonPathConstant;
 import com.safetynet.webmicroservice.webmodel.Firestation;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
 import com.safetynet.webmicroservice.webmodel.Person;
 
 
@@ -19,23 +19,20 @@ public class FileReaderToListTest {
 
 	private FileReaderToList fileReaderToList;
 	
-	//private List<Firestation> firestationsFalseData;
 	private  List<Firestation> firestationsTest;
 	
-	//private List<Person> personFalseData;
 	private  List<Person> personsTest;
 	
-	//private List<MedicalRecord> medicalRecordFalseData;
-	private  List<MedicalRecord> medicalRecordTest;
+	private  List<Medicalrecord> medicalRecordTest;
 	
-	private List<String> medications = new ArrayList<String>();
-	private List<String> allergies = new ArrayList<String>();
+	private ArrayList<String> medications = new ArrayList<String>();
+	private ArrayList<String> allergies = new ArrayList<String>();
 	
 	private Firestation firestation = new Firestation("1509 Culver St","3");
 	
 	private Person person = new Person("John", "Boyd","1509 Culver St","Culver","97451","841-874-6512", "jaboyd@email.com" );
 	
-	private MedicalRecord medicalRecord;
+	private Medicalrecord medicalRecord;
 	
 	private String medications1 = "aznol:350mg";
 	private String medications2 = "hydrapermazol:100mg";
@@ -75,7 +72,7 @@ public class FileReaderToListTest {
 		medications.add(medications1);
 		medications.add(medications2);
 		allergies.add(allergies1);
-		medicalRecord = new MedicalRecord("John", "Boyd","03/06/1984", medications, allergies);
+		medicalRecord = new Medicalrecord("John", "Boyd","03/06/1984", medications, allergies);
 		//medicalRecordFalseData.add(medicalRecord);
 		medicalRecordTest = fileReaderToList.getMedicalRecordToList();
 		//Assertions.assertEquals(medicalRecordTest, medicalRecordFalseData);

@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.safetynet.webmicroservice.constants.DataInMemory;
-import com.safetynet.webmicroservice.webmodel.MedicalRecord;
+import com.safetynet.webmicroservice.webmodel.Medicalrecord;
 @Component
 public class AgeCalculator {
 	
 	@Autowired
 	DataInMemory data;
 	
-	List<MedicalRecord> medicalRecords;
+	List<Medicalrecord> medicalRecords;
 	
 	public long calculator(String birthdate) {
 		
