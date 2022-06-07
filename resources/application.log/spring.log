@@ -1,0 +1,10 @@
+2022-04-22 03:56:40.130  INFO 106560 --- [main] c.s.w.WebmicroserviceApplication         : Starting WebmicroserviceApplication using Java 1.8.0_302 on DESKTOP-TV81MP1 with PID 106560 (C:\Users\Mathieu\Documents\Programmation\Java OpenClassroom\Projet5\webmicroservice\target\classes started by Mathieu in C:\Users\Mathieu\Documents\Programmation\Java OpenClassroom\Projet5\webmicroservice)
+2022-04-22 03:56:40.148  INFO 106560 --- [main] c.s.w.WebmicroserviceApplication         : No active profile set, falling back to default profiles: default
+2022-04-22 03:56:42.592  INFO 106560 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-04-22 03:56:42.602  INFO 106560 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-22 03:56:42.602  INFO 106560 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2022-04-22 03:56:42.860  INFO 106560 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-04-22 03:56:42.860  INFO 106560 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2640 ms
+2022-04-22 03:56:43.692  INFO 106560 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2022-04-22 03:56:43.726  INFO 106560 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-04-22 03:56:43.734  INFO 106560 --- [main] c.s.w.WebmicroserviceApplication         : Started WebmicroserviceApplication in 4.192 seconds (JVM running for 4.883)
